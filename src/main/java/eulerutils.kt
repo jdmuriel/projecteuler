@@ -1,5 +1,5 @@
 
-package com.jdmuriel.eulerutils
+package com.jdmuriel.euler.utils
 
 import java.math.BigInteger
 

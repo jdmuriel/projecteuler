@@ -1,4 +1,4 @@
-import com.jdmuriel.eulerutils.sumOfDigits
+import com.jdmuriel.euler.utils.sumOfDigits
 import java.math.BigInteger
 
 /**

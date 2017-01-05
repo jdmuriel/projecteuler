@@ -79,4 +79,9 @@ class PrimeGenerator {
         generateSieve (primeCount)
         return primes.toList()
     }
+    fun getPrimesUnder (maxPrime: BigInteger) : List<BigInteger> {
+        generateSieve (0, maxPrime)
+        return primes.toList()
+    }
+
 }

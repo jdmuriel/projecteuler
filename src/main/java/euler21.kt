@@ -1,3 +1,4 @@
+
 import java.util.*
 
 /**
@@ -5,40 +6,41 @@ import java.util.*
  * https://projecteuler.net/problem=21
  */
 
-//KOTLIN FEATURES:
+//KOTLIN FEATURES: for in 1..n, mod, String interpolation, list forEach() and sum()
+//104778th person to solve this.
 
+val MAX_NUMBER = 10000-1        //Numbers under 10000
 fun main (args: Array<String>) {
-    val ph = PrimeHandler() //reuse prime cache
-    var amicable: MutableList<Int> = mutableListOf()
+    var amicableNumbers = TreeSet<Int>()
     for (i in 1..9999) {
-        val friend = getProperDivisors(i, ph).sum()
-        //TODO: if friend<i, check if already in list
-        if (getProperDivisors(friend, ph).sum() == i) {
-            amicable.add (i)
-            amicable.add (friend)
+        val divisors = getProperDivisors(i)
+        val friend = divisors.sum()
+        val friendDivisors = getProperDivisors(friend)
+        //println ("Checking $i: divisors=$divisors, friend=$friend, friendDivisors=$friendDivisors")
+        if (friend != i && friendDivisors.sum() == i) {
+            amicableNumbers.add (i)
+            println ("Amicable number $i: divisors=$divisors, friend=$friend, friendDivisors=$friendDivisors")
         }
     }
-    //TODO SUM AND MESSAGE
-    //XX
+    println ("${amicableNumbers.size} amicable numbers:")
+    amicableNumbers.forEach { println (it) }
+    println ("Sum:" + amicableNumbers.fold( 0 ) { R, it -> R + it} )
 }
 
-//TODO: class with p injected and function getProperDivisors(i)
-fun getProperDivisors (i: Int, p: PrimeHandler) : List<Int> {
-    return listOf()
-}
-
-class PrimeHandler() {
-    fun getPrimesInRange(r: IntRange): List<Int> {
-        return listOf()
+//i>=1
+fun getDivisorsSum(i: Int): Int {
+    var sum = 1
+    for (probableDiv in 2..i-1) {
+        if (i.mod(probableDiv) == 0) sum+=probableDiv
     }
+    return sum
 }
 
-fun getList(): List<Int> {
-    val arrayList = arrayListOf(1, 5, 2)
-    Collections.sort(arrayList,  object: Comparator<Int> {
-        override fun compare(a:Int,b:Int): Int {
-            return b-a
-        }
-    } )
-    return arrayList
+fun getProperDivisors (i: Int) : List<Int> {
+    val divisors = mutableListOf(1)
+    for (probableDiv in 2..i-1) {
+        if (i.mod(probableDiv) == 0) divisors.add(probableDiv)
+    }
+    return divisors
 }
+

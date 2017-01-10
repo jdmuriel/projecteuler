@@ -2,8 +2,8 @@ import java.util.*
 import kotlin.system.exitProcess
 
 /**
- * Created by jesus on 07/01/2017
- * https://projecteuler.net/problem=23
+ * Created by jesus on 09/01/2017
+ * https://projecteuler.net/problem=24
  */
 
 /*

@@ -55,8 +55,12 @@
                 <option name="extraHelp" value="false" />
                 <option name="noInline" value="false" />
                 <option name="repeat" />
-                <option name="pluginClasspaths" />
-                <option name="pluginOptions" />
+                <option name="pluginClasspaths">
+                  <array />
+                </option>
+                <option name="pluginOptions">
+                  <array />
+                </option>
                 <option name="freeArgs">
                   <list />
                 </option>

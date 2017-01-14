@@ -9,6 +9,7 @@ import java.math.BigInteger
  */
 
 fun BigInteger.sumOfDigits(): Int =
-    this.toString().fold(0) { sum, char -> sum + (char - '0')}
+        this.toString().fold(0) { sum, char -> sum + (char - '0')}
 
-
+fun Int.toBigInteger(): BigInteger =
+        BigInteger.valueOf(this.toLong())

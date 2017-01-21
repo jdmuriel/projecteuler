@@ -76,7 +76,6 @@ fun checkDigitCancellingFraction(f: Fraction<Int>) : Boolean {
         den = digitsDen.joinToString("").toInt()
         return (num != f.numerator && num * f.denominator == den * f.numerator)
     }
-
 }
 
 

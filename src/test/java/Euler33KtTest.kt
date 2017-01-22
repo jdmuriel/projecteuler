@@ -1,4 +1,4 @@
-
+import com.jdmuriel.euler.utils.Fraction
 import org.junit.Assert
 import org.junit.Test
 
@@ -6,7 +6,7 @@ import org.junit.Test
  * Created by jesus on 21/01/2017.
  */
 
-class Euler33Test {
+class Euler33KtTest {
     @Test
     fun `49-98 is a digit cancelling fraction` () {
         Assert.assertTrue(checkDigitCancellingFraction (Fraction(49,98)))
@@ -24,4 +24,3 @@ class Euler33Test {
         Assert.assertFalse(checkDigitCancellingFraction (Fraction(12,21)))
     }
 }
-

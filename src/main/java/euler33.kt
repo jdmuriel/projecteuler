@@ -1,4 +1,5 @@
 
+import com.jdmuriel.euler.utils.Fraction
 import java.util.*
 import kotlin.system.measureTimeMillis
 
@@ -19,8 +20,6 @@ import kotlin.system.measureTimeMillis
  * - There are better options than using a LinkedList to simplify
  * 52296th person to solve this.
  */
-
-data class Fraction<T> (val numerator: T, val denominator: T)
 
 fun main (args: Array<String>) {
     val time = measureTimeMillis {

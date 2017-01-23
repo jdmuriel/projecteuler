@@ -1,5 +1,6 @@
 package com.jdmuriel.euler
 
+import com.jdmuriel.euler.utils.toBigInteger
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.*
@@ -34,7 +35,7 @@ class PrimeGenerator {
         }
         //General case
         nextToCheckAdding2 = true     //wrong, but necessary to start checking 7
-        while (!isSieveLargeEnough(numberOfPrimes, primeToCheck)) {
+        while (!keepFillingSieve(numberOfPrimes, primeToCheck)) {
             //calc next to check
             if (nextToCheckAdding2) {
                 maxChecked += BigInteger.valueOf(2L)
@@ -47,13 +48,18 @@ class PrimeGenerator {
         }
     }
 
-    private fun isSieveLargeEnough(
+    private fun keepFillingSieve(
             maxNumberOfPrimes: Int,
             maxPrimeToCheck: BigInteger) : Boolean {
         if (maxNumberOfPrimes>0)
             return primes.size >= maxNumberOfPrimes
         else
             return maxPrimeToCheck<=maxChecked
+    }
+
+    private fun isSieveLargeEnough(
+            primeToCheck: BigInteger) : Boolean {
+        return primeToCheck<=maxChecked*maxChecked
     }
 
     private fun isDivisorInSieve(number: BigInteger) : Boolean  {
@@ -66,7 +72,8 @@ class PrimeGenerator {
     }
 
     fun isPrime (number: BigInteger) : Boolean {
-        if (!isSieveLargeEnough(0, number)) {
+        if (number < BigInteger.ZERO) throw IllegalArgumentException()
+        if (!isSieveLargeEnough(number)) {
             generateSieve(0, number)
         }
         if (number > maxChecked)
@@ -75,12 +82,22 @@ class PrimeGenerator {
             return primes.contains(number)
     }
 
+    fun isPrime (number: Int) = isPrime(number.toBigInteger())
+
     fun getPrimes (primeCount: Int) : List<BigInteger> {
         generateSieve (primeCount)
         return primes.toList()
     }
     fun getPrimesUnder (maxPrime: BigInteger) : List<BigInteger> {
         generateSieve (0, maxPrime)
+        var i = maxChecked + BigInteger.ONE
+        while (i <= maxPrime) {
+            if (!isDivisorInSieve(i)){
+                primes.add(i)
+            }
+            i+= BigInteger.ONE
+        }
+        maxChecked = maxPrime
         return primes.toList()
     }
 

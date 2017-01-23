@@ -1,5 +1,6 @@
 
 import com.jdmuriel.euler.PrimeGenerator
+import com.jdmuriel.euler.utils.toBigInteger
 import org.junit.Assert
 import org.junit.Test
 import java.math.BigInteger
@@ -9,9 +10,10 @@ import java.math.BigInteger
  */
 class PrimeGeneratorTest {
 
+    val primeGen = PrimeGenerator()
+
     @Test
     fun checkCommonPrimes() {
-        val primeGen = PrimeGenerator()
         Assert.assertTrue(primeGen.isPrime(BigInteger.valueOf(2L)))
         Assert.assertTrue(primeGen.isPrime(BigInteger.valueOf(3L)))
         Assert.assertFalse(primeGen.isPrime(BigInteger.valueOf(4L)))
@@ -28,11 +30,15 @@ class PrimeGeneratorTest {
     }
 
     @Test
-    fun getPrimes() {
-        val primeGen = PrimeGenerator()
+    fun first5PrimesAreCalculatedRight() {
         Assert.assertArrayEquals(
                 listOf<Long>(2,3,5,7,11).map { i -> BigInteger.valueOf(i) }.toTypedArray(),
                 primeGen.getPrimes(5).toTypedArray())
+    }
+    @Test
+    fun thereAre25PrimesUnder100() {
+        val l = primeGen.getPrimesUnder(100.toBigInteger())
+        Assert.assertEquals(25, l.size)
     }
 
 }

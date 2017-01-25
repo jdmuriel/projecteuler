@@ -66,6 +66,8 @@ class PrimeGenerator {
         primes.forEach { prime ->
             if (number.remainder(prime).equals(BigInteger.ZERO)) {
                 return true
+            } else if (number < prime) {
+                return false
             }
         }
         return false

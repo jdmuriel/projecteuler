@@ -1,4 +1,5 @@
 
+import com.jdmuriel.euler.utils.isPandigital
 import kotlin.system.measureTimeMillis
 
 /**
@@ -45,7 +46,7 @@ private fun calc(): Unit {
 private fun testProduct (product: Int): Boolean {
     for (j in 99 downTo 2) {
         if (product % j == 0) {
-            if (isPandigital(product, j, product / j)) {
+            if (isPandigitalProduct(product, j, product / j)) {
                 println("${product / j} x $j = $product")
                 return true
             }
@@ -54,19 +55,7 @@ private fun testProduct (product: Int): Boolean {
     return false
 }
 
-private fun isPandigital(i: Int, j: Int, k:Int): Boolean {
+fun isPandigitalProduct(i: Int, j: Int, k:Int): Boolean {
     val s = i.toString() + j.toString() + k.toString()
-    return  (s.length == 9 && getDifferentDigitsHigherThan0(s)==9)
-}
-private fun getDifferentDigitsHigherThan0(s: String): Int {
-    val array = IntArray(10)
-    var count = 0
-    for (c in s.iterator()){
-        if ((c-'0')>0 && array[c-'0']==0) {
-            //Higher than 0 and not already present
-            count++
-        }
-        array[c-'0']=1
-    }
-    return count
+    return isPandigital(s)
 }

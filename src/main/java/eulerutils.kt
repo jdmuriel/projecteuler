@@ -39,3 +39,8 @@ private fun getDifferentDigitsHigherThan0(s: String): Int {
     }
     return count
 }
+
+fun getWordValue (word: String) : Int {
+    val values = word.asIterable().map { char -> char - 'A'+1 }
+    return values.sum()
+}

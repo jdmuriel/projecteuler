@@ -6,7 +6,7 @@ import kotlin.system.measureTimeMillis
 /**
  * Created by @jdmuriel on 03/02/2017
  * https://projecteuler.net/problem=42
- * 	Coded triangle numbers
+ * Coded triangle numbers
  */
 
 /*

@@ -22,7 +22,7 @@ fun main (args: Array<String>) {
     val time = measureTimeMillis {
         calc()
     }
-    println ("Elapsed time: ${"%d".format(time/1000)} (s)")
+    println ("Elapsed time: ${"%.3f".format(time.toFloat()/1000)} (s)")
 
 }
 

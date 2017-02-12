@@ -61,3 +61,7 @@ fun getWordValue (word: String) : Int {
     val values = word.asIterable().map { char -> char - 'A'+1 }
     return values.sum()
 }
+
+fun isInteger (d: Double) : Boolean {
+    return Math.floor(d) == d
+}

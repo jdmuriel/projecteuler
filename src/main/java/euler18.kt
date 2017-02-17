@@ -15,9 +15,9 @@ class MaxPath {
             array.add ( IntArray(i) {sc.nextInt()} )
         }
     }
-    //We calculate maximum value for each cell starting by last row
+    //We calculate maximum value for each cell starting by solution row
     fun solve (): Int {
-        //process from longest / last row to first one
+        //process from longest / solution row to first one
         array.reverse()
         //process every row
         array.forEachIndexed { i, row ->

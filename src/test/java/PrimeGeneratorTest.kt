@@ -30,15 +30,40 @@ class PrimeGeneratorTest {
     }
 
     @Test
+    fun first2PrimesAreCalculatedRight() {
+        Assert.assertArrayEquals(
+                listOf<Long>(2,3).map { i -> BigInteger.valueOf(i) }.toTypedArray(),
+                primeGen.getPrimes(2).toTypedArray())
+    }
+
+    @Test
     fun first5PrimesAreCalculatedRight() {
         Assert.assertArrayEquals(
                 listOf<Long>(2,3,5,7,11).map { i -> BigInteger.valueOf(i) }.toTypedArray(),
                 primeGen.getPrimes(5).toTypedArray())
     }
+
+    @Test
+    fun first5PrimesAreCalculatedRightAfterPreviousCallToGetMorePrimes() {
+        primeGen.getPrimes(10)
+        Assert.assertArrayEquals(
+                listOf<Long>(2,3,5,7,11).map { i -> BigInteger.valueOf(i) }.toTypedArray(),
+                primeGen.getPrimes(5).toTypedArray())
+    }
+
+    @Test
+    fun first5PrimesAreCalculatedRightAfterPreviousCallToGetFewerPrimes() {
+        primeGen.getPrimes(2)
+        Assert.assertArrayEquals(
+                listOf<Long>(2,3,5,7,11).map { i -> BigInteger.valueOf(i) }.toTypedArray(),
+                primeGen.getPrimes(5).toTypedArray())
+    }
+
     @Test
     fun thereAre25PrimesUnder100() {
         val l = primeGen.getPrimesUnder(100.toBigInteger())
         Assert.assertEquals(25, l.size)
     }
+
 
 }

@@ -11,31 +11,24 @@ import java.util.*
  */
 class PrimeGenerator {
     private val primes = TreeSet<BigInteger>()
-    private var maxChecked = BigInteger.ZERO
+    private var maxChecked = BigInteger.ZERO            //Must be zero or odd>=3
     private var nextToCheckAdding2 = false
 
     //We check numbers x = i*6+-1
     //for each number, we traverse the list of primes higher than 3, up to sqrt(number)
     //if not found, we add it to the list
-    //TODO: Add functionality to enlarge an existing sieve
-    private fun generateSieve (numberOfPrimes: Int = 0, numberToCheckIfPrime: BigInteger = BigInteger.ZERO) {
-        val primeToCheck = BigDecimal(Math.sqrt(numberToCheckIfPrime.toDouble())).toBigInteger()
-        primes.clear()
-        if (numberOfPrimes == 0 || numberOfPrimes >= 1) {
-            primes.add(BigInteger.valueOf(2L))
-            maxChecked = BigInteger.valueOf(2L)
+    private fun generateSieve (numberOfPrimes: Int = 0, maxInSieve: BigInteger = BigInteger.ZERO) {
+        //Fill initial primes
+        if (maxChecked== BigInteger.ZERO) {
+            primes.addAll(listOf(2, 3, 5).map(Int::toBigInteger))
+            maxChecked = 5.toBigInteger()
         }
-        if (numberOfPrimes == 0 || numberOfPrimes >= 2) {
-            primes.add(BigInteger.valueOf(3L))
-            maxChecked = BigInteger.valueOf(3L)
-        }
-        if (numberOfPrimes == 0 || numberOfPrimes >= 3 ) {
-            primes.add (BigInteger.valueOf(5L))
-            maxChecked = BigInteger.valueOf(5L)
-        }
+
+        if ((maxChecked + BigInteger.ONE).mod (6.toBigInteger()) == BigInteger.ZERO)
+            nextToCheckAdding2 = true
+
         //General case
-        nextToCheckAdding2 = true     //wrong, but necessary to start checking 7
-        while (!keepFillingSieve(numberOfPrimes, primeToCheck)) {
+        while (keepFillingSieve(numberOfPrimes, maxInSieve)) {
             //calc next to check
             if (nextToCheckAdding2) {
                 maxChecked += BigInteger.valueOf(2L)
@@ -52,9 +45,9 @@ class PrimeGenerator {
             maxNumberOfPrimes: Int,
             maxPrimeToCheck: BigInteger) : Boolean {
         if (maxNumberOfPrimes>0)
-            return primes.size >= maxNumberOfPrimes
+            return primes.size < maxNumberOfPrimes
         else
-            return maxPrimeToCheck<=maxChecked
+            return maxPrimeToCheck > maxChecked
     }
 
     private fun isSieveLargeEnough(
@@ -76,6 +69,8 @@ class PrimeGenerator {
     fun isPrime (number: BigInteger) : Boolean {
         if (number < BigInteger.ZERO) throw IllegalArgumentException()
         if (!isSieveLargeEnough(number)) {
+            //We need sqrt(number) in sieve
+            val primeToCheck = BigDecimal(Math.sqrt(number.toDouble())).toBigInteger()
             generateSieve(0, number)
         }
         if (number > maxChecked)
@@ -88,7 +83,7 @@ class PrimeGenerator {
 
     fun getPrimes (primeCount: Int) : List<BigInteger> {
         generateSieve (primeCount)
-        return primes.toList()
+        return primes.filterIndexed { i, bigInteger -> i<primeCount }
     }
     fun getPrimesUnder (maxPrime: BigInteger) : List<BigInteger> {
         generateSieve (0, maxPrime)
@@ -97,10 +92,10 @@ class PrimeGenerator {
             if (!isDivisorInSieve(i)){
                 primes.add(i)
             }
-            i+= BigInteger.ONE
+            i+= BigInteger.valueOf(2L)
         }
         maxChecked = maxPrime
-        return primes.toList()
+        return primes.filter { it <= maxPrime }
     }
 
 }

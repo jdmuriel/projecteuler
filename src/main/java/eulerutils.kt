@@ -13,9 +13,12 @@ data class Fraction<T> (val numerator: T, val denominator: T)
 fun BigInteger.sumOfDigits(): Int =
         this.toString().fold(0) { sum, char -> sum + (char - '0')}
 
-fun Int.toBigInteger(): BigInteger =
-        BigInteger.valueOf(this.toLong())
-
+fun Number.toBigInteger(): BigInteger {
+    if (this is Long )
+        return BigInteger.valueOf(this)
+    else
+        return BigInteger.valueOf(this.toLong())
+}
 
 //9 digit number which contais all 1-9 digits
 fun isPandigital(i: Int): Boolean {

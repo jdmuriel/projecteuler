@@ -2,9 +2,9 @@
 import kotlin.system.measureTimeMillis
 
 /**
- * Created by @jdmuriel on 12/02/2017
- * https://projecteuler.net/problem=46
- * 	Goldbach's other conjecture
+ * Created by @jdmuriel on xx/02/2017
+ * https://projecteuler.net/problem=xx
+ * xx
  */
 
 /*

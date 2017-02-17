@@ -23,7 +23,7 @@ fun main (args: Array<String>) {
  * 18  5  4  3 12
  * 17 16 15 14 13
  * A square in step N has Size S = N*2-1 rows and cols. 1 for N=1, 3 for N=2, 5 for N=3, ...
- * If the last corner of a square of size N, is LCn,
+ * If the solution corner of a square of size N, is LCn,
  *   the value of the corner of the square N+1 is LCn + number of outer cells in that square
  * Number of outer cells in a square of size S is S * 4 - 4 = (S-1)*4 = ((N*2-1)-1)*4
  * Last Corner of the square of step N, LCn is LCn-1 + ((N*2-1)-1)*4 =

@@ -71,7 +71,7 @@ class PrimeGenerator {
         if (!isSieveLargeEnough(number)) {
             //We need sqrt(number) in sieve
             val primeToCheck = BigDecimal(Math.sqrt(number.toDouble())).toBigInteger()
-            generateSieve(0, number)
+            generateSieve(0, primeToCheck)
         }
         if (number > maxChecked)
             return !isDivisorInSieve(number)

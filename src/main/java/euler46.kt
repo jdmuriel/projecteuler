@@ -18,8 +18,8 @@ import kotlin.system.measureTimeMillis
  * 44339th person to solve this.
  */
 
-val primes = PrimeGenerator().getPrimesUnder(100000.toBigInteger())
-val twiceSquares = fillTwiceSquaresUnder(100000)
+private val primes = PrimeGenerator().getPrimesUnder(100000.toBigInteger())
+private val twiceSquares = fillTwiceSquaresUnder(100000)
 
 fun main (args: Array<String>) {
     val time = measureTimeMillis {

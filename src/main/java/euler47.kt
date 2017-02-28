@@ -24,7 +24,7 @@ import kotlin.system.measureTimeMillis
  * 42099th person to solve this.
  */
 
-val primeGen = PrimeGenerator()
+private val primeGen = PrimeGenerator()
 
 fun main (args: Array<String>) {
     val time = measureTimeMillis {

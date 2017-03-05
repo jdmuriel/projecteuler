@@ -5,9 +5,7 @@ import kotlin.system.measureTimeMillis
  * Created by @jdmuriel on xx/02/2017
  * https://projecteuler.net/problem=xx
  * xx
- */
-
-/*
+ *
  * JAVA / KOTLIN / LIBRARIES FEATURES USED:
  * -
  * OTHER COMMENTS:

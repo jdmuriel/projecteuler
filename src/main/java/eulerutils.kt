@@ -68,3 +68,7 @@ fun getWordValue (word: String) : Int {
 fun isInteger (d: Double) : Boolean {
     return Math.floor(d) == d
 }
+
+fun Number.getDigitCount() : Int {
+    return this.toString().length
+}

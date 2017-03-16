@@ -1,7 +1,7 @@
 
 package com.jdmuriel.euler.euler58
 
-import PrimeArraySieve
+import com.jdmuriel.euler.PrimeArraySieve
 import kotlin.system.measureTimeMillis
 
 /**

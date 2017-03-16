@@ -1,3 +1,5 @@
+package com.jdmuriel.euler
+
 /**
  * Created by jesus on 28/02/2017.
  * Erathostenes' sieve based on a boolean array

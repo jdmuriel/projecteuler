@@ -86,33 +86,6 @@ private fun evaluatePosition (p: Position) : Backtrack.PositionValue {
     }
 }
 
-//This evaluator does not work because we were finding a cyclic of ordered octagonal, heptagonal...triangular numbers
-// and the problem asks for a number of each type, in no specified order.
-private fun evaluatePositionWrong (p: Position) : Backtrack.PositionValue {
-    if (p.stage<=1)
-        return Backtrack.PositionValue.POSSIBLE_SOLUTION
-    else  {
-        //check if last position in numbers is in the stage set
-        if (sets[p.stage-1].contains(p.numbers[p.stage-1])) {
-            if (p.stage == sets.size) {
-                //Check circularity (first number must start with last digits of last number)
-                if (p.numbers[0]/100 == p.numbers[sets.size-1].mod(100)) {
-                    println("Solution found: $p")
-                    return Backtrack.PositionValue.SOLUTION
-                } else {
-                    println("Almost cyclic solution, but final and initial number do not match: $p")
-                    return Backtrack.PositionValue.FAIL
-                }
-            } else {
-                println ("possible solution: $p")
-                return Backtrack.PositionValue.POSSIBLE_SOLUTION
-            }
-        } else {
-            return Backtrack.PositionValue.FAIL
-        }
-    }
-}
-
 //The generator is OK, we can start with octagonals because it is a cycle
 private fun generateNewPositions (p:Position) : Iterable<Position> {
     if (p.stage==0) {

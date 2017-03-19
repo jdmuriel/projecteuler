@@ -2,6 +2,7 @@
 
 package com.jdmuriel.euler.euler61
 
+import com.jdmuriel.euler.utils.Backtrack
 import java.util.*
 import kotlin.system.measureTimeMillis
 
@@ -11,10 +12,13 @@ import kotlin.system.measureTimeMillis
  * Cyclical figurate numbers
  *
  * JAVA / KOTLIN / LIBRARIES FEATURES USED:
- * -
+ * - HashSet
+ * - Lambda functions
+ * - Iterable.toSet
+ * - arrayOf, array.copyOf
  * OTHER COMMENTS:
- * -
- * person to solve this.
+ * - Backtrack utility class
+ * 18313th person to solve this.
  */
 
 fun main (args: Array<String>) {
@@ -27,12 +31,12 @@ fun main (args: Array<String>) {
 
 private val LIMIT_INF = 1000
 private val LIMIT_SUP = 9999
-private val octagonals = Iterable{ FunctionLimitIterable(LIMIT_INF, LIMIT_SUP, ::getOctagonal)}.toSet()
-private val heptagonals = Iterable{ FunctionLimitIterable(LIMIT_INF, LIMIT_SUP, ::getHeptagonal)}.toSet()
-private val hexagonals =  Iterable{ FunctionLimitIterable(LIMIT_INF, LIMIT_SUP, ::getHexagonal)}.toSet()
-private val pentagonals =  Iterable{ FunctionLimitIterable(LIMIT_INF, LIMIT_SUP, ::getPentagonal)}.toSet()
-private val squares = Iterable{ FunctionLimitIterable(LIMIT_INF, LIMIT_SUP, ::getSquare)}.toSet()
-private val triangulars =  Iterable{ FunctionLimitIterable(LIMIT_INF, LIMIT_SUP, ::getTriangular)}.toSet()
+private val octagonals = Iterable{ LimitByRangeIterator(LIMIT_INF, LIMIT_SUP, ::getOctagonal)}.toSet()
+private val heptagonals = Iterable{ LimitByRangeIterator(LIMIT_INF, LIMIT_SUP, ::getHeptagonal)}.toSet()
+private val hexagonals =  Iterable{ LimitByRangeIterator(LIMIT_INF, LIMIT_SUP, ::getHexagonal)}.toSet()
+private val pentagonals =  Iterable{ LimitByRangeIterator(LIMIT_INF, LIMIT_SUP, ::getPentagonal)}.toSet()
+private val squares = Iterable{ LimitByRangeIterator(LIMIT_INF, LIMIT_SUP, ::getSquare)}.toSet()
+private val triangulars =  Iterable{ LimitByRangeIterator(LIMIT_INF, LIMIT_SUP, ::getTriangular)}.toSet()
 private val sets = arrayOf (octagonals, heptagonals, hexagonals, pentagonals, squares, triangulars)
 //private val sets = arrayOf (pentagonals, squares, triangulars)
 
@@ -43,11 +47,13 @@ private fun calc(): Unit {
     println (getListOctagonals(10,20))
     println (getListOctagonals(1000,9999))
 
-    val solver = Backtrack<Position> (Position(), ::evaluatePosition, ::generateNewPositions)
-    println(solver.solve())
+    val solver = Backtrack(Position(), ::evaluatePosition, ::generateNewPositions)
+    val (solution, result) = solver.solve()
+    println("Found: $solution, result: $result. Sum: ${solution.numbers.sum()}")
 
 }
 
+@Suppress("ArrayInDataClass")
 private data class Position (
     var stage: Int = 0,  //0: initial stage. 1: solving octagonals... 6: solving triangulars
     var setsChecked: MutableSet<Int> = HashSet(),
@@ -98,46 +104,7 @@ private fun generateNewPositions (p:Position) : Iterable<Position> {
     }
 }
 
-//Start searching octagonals.
-//For each octagonal, generate next possibilities
-//Possibilities are 100 numbers starting by last two digits of octogonals, which are heptagonals.
-//This is a backtracking algorithm
-class Backtrack<T> (
-        val initialPosition:T,
-        val evaluatePosition: (T)->PositionValue,
-        val generateNewPositions: (T)->Iterable<T> ) {
-    enum class PositionValue {FAIL, POSSIBLE_SOLUTION, SOLUTION}
-    fun solve () : Pair<T, PositionValue> {
-        return solveStep (initialPosition)
-    }
-    fun solveStep (position: T): Pair <T, PositionValue> {
-        val result = evaluatePosition(position)
-        when (result) {
-            //if solution, return
-            PositionValue.SOLUTION -> {
-                return Pair (position, result)
-            }
-            //else if fail, return
-            PositionValue.FAIL -> {
-                return Pair (position, result)
-            }
-            //else get and evaluate new positions
-            PositionValue.POSSIBLE_SOLUTION -> {
-                generateNewPositions(position).forEach {
-                    val recurseResult = solveStep (it)
-                    if (recurseResult.second == PositionValue.SOLUTION) {
-                        //Exit loop
-                        return recurseResult
-                    }
-                }
-                //no solution found from this position
-                return Pair (position, PositionValue.FAIL)
-            }
-        }
-    }
-}
-
-class FunctionLimitIterable (
+class LimitByRangeIterator(
         from: Int,
         private val upTo: Int,
         private val fn: (Int) -> Int) : Iterator<Int> {
@@ -171,7 +138,7 @@ class FunctionLimitIterable (
 }
 
 private fun getListOctagonals(from: Int, upto: Int) : List<Int> {
-    return Iterable{ FunctionLimitIterable(from, upto, ::getOctagonal)}.toList()
+    return Iterable{ LimitByRangeIterator(from, upto, ::getOctagonal)}.toList()
 }
 
 private fun getOctagonal(n:Int) : Int {

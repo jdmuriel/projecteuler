@@ -10,7 +10,7 @@ import java.math.BigInteger
 
 data class Fraction<T> (val numerator: T, val denominator: T)
 
-fun BigInteger.sumOfDigits(): Int =
+fun Number.sumOfDigits(): Int =
         this.toString().fold(0) { sum, char -> sum + (char - '0')}
 
 fun Number.toBigInteger(): BigInteger {

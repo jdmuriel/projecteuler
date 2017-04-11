@@ -32,6 +32,8 @@ private fun calc(): Unit {
     (1..LIMIT).forEach {
         val fsr = FractionalSquareRoots(it)
         fsr.calc()
+        val ai = fsr.ai.values.map { it.x }
+        println ("Continuous fraction of sqrt $it: ${ai}")
         //println ("Fractional square roots for sqrt($it): ${fsr.x0},(${fsr.ai.map {it.value.x}})")
         if (fsr.ai.size % 2==1) {
             //odd

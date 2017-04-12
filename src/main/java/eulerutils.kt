@@ -72,3 +72,11 @@ fun isInteger (d: Double) : Boolean {
 fun Number.getDigitCount() : Int {
     return this.toString().length
 }
+
+fun <T: Comparable<T>> max(n1: T, n2: T): T {
+    return if ( n1 > n2 ) n1 else n2
+}
+
+fun <T: Comparable<T>> min(n1: T, n2: T): T {
+    return if ( n1 < n2 ) n1 else n2
+}

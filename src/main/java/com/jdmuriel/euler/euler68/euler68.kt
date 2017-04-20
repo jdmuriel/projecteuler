@@ -1,6 +1,7 @@
 
-//package com.jdmuriel.euler.eulerxx
+package com.jdmuriel.euler.euler68
 
+import generateOrderedPermutations
 import java.util.*
 import kotlin.system.measureTimeMillis
 

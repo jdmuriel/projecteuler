@@ -53,7 +53,7 @@ private fun calc(): Unit {
     *          Iterate j = i*2; j<=n; j+=i
  *                  sieve[j-1] = sieve[j-1]*(1-1/i)
  */
-private class TotientSieve (val maxn: Int) : Iterable<Long> {
+class TotientSieve (val maxn: Int) : Iterable<Long> {
 
     private val sieve = LongArray(maxn) { it+1L }
 
